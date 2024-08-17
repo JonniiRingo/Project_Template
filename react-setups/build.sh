@@ -1,3 +1,1 @@
-chmod +x react-project-setup.sh
-
-./setup-project.sh
+chmod +x setup.sh
