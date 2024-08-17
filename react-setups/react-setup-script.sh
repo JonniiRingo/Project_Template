@@ -172,6 +172,10 @@ else
 fi
 
 # Step 5: Install or update dependencies
+
+# Install React and React-DOM explicitly
+npm install react react-dom
+
 echo "Installing or updating dependencies..."
 npm install
 
