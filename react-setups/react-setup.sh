@@ -156,7 +156,7 @@ if [ ! -d .git ]; then
     gh repo create "$REPO_NAME" --public
     if [ $? -eq 0 ]; then
         echo "Remote repository created successfully."
-        git remote add origin git@github.com:Jonnii_Ringo/"$REPO_NAME".git
+        git remote add origin git@github.com:YOURGITHUBUSERNAME/"$REPO_NAME".git
         if [ $? -eq 0 ]; then
             echo "Remote repository added successfully."
         else
@@ -172,12 +172,13 @@ else
 fi
 
 # Step 5: Install or update dependencies
-
-# Install React and React-DOM explicitly
-npm install react react-dom
-
 echo "Installing or updating dependencies..."
-npm install
+
+# Install the latest versions of React and React-DOM explicitly
+npm install react@latest react-dom@latest
+
+
+npm i
 
 # Step 6: Add and commit initial changes
 echo "Adding and committing initial changes to Git..."
