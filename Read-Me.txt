@@ -1,5 +1,8 @@
 Development Environment Setup
 
+Be sure to change JonniiRingo Github username to your own or else the script will not work.
+
+
 Welcome to the Development Environment Setup repository! This guide will help you quickly set up a macOS development environment
 with essential tools for Node.js development and React projects.
 
