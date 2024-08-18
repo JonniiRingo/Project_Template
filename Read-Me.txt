@@ -17,7 +17,7 @@ Overview
 This repository contains scripts to streamline your development environment setup:
 
 setup.sh: Installs essential tools for Node.js development and other useful applications.
-react-project-script.sh: Automates the setup of a React project with a recommended structure and dependencies.
+react-setup.sh: Automates the setup of a React project with a recommended structure and dependencies.
 Setup Script
 
 The setup.sh script installs the following tools:
