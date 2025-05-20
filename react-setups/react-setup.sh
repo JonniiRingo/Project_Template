@@ -110,3 +110,7 @@ echo "Starting React development server..."
 npm run dev || npm start
 
 echo "Project setup complete. Your project is running!"
+
+
+# Create an alias for short command.
+alias reactsetup="bash /Users/jonathansamuels/Web\ Development\ Projects/Projects-Setup/react-setups/react-setup.sh"
