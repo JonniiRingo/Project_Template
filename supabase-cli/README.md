@@ -1,48 +1,74 @@
- Example Workflow:
+# Supabase + Edge Functions Bootstrap Guide
 
- supabase login
+## Example Workflow
+
+```bash
+# 1. Login to Supabase
+supabase login
 # opens browser, asks for token auth
+
+# 2. Create a new Supabase project
 supabase projects create portfolio-db \
-  --org-id HASH \
-  --db-password "PASSWORD" \
+  --org-id YOUR_ORG_ID \
+  --db-password "YOUR_PASSWORD" \
   --region us-east-1
 
+# 3. Initialize Supabase directory structure
 supabase init
-# creates supabase/ directory with config
 
-supabase link --project-ref abcdefghijklmnop
-# links CLI to your Supabase project
+# 4. Link local project to Supabase
+supabase link --project-ref YOUR_PROJECT_REF
 
+# Deploy linked project
+cd supabase                  # now CWD == portfolio/supabase
+supabase functions deploy log-visit
+
+# 5. Push your schema
 supabase db push
-# pushes local schema.sql to your cloud db
+```
 
+---
 
+## Final Project Structure
 
-
-# Project Structure After supabase init
-.
-├── supabase
+```
+portfolio/
+├── supabase/
 │   ├── config.toml
-│   ├── migrations/
-│   └── functions/
-├── supabase.env
-└── .env         # Your project secrets here (ANON_KEY, URL)
+│   ├── .env
+│   ├── supabase.env
+│   ├── functions/
+│   │   └── log-visit/
+│   │       ├── index.ts
+│   │       ├── deno.json
+│   │       └── import_map.json
+│   └── migrations/
+│       └── 20240605_init.sql
+├── .env
+└── README.md
+```
 
+---
 
-# You can test locally with 
+## Test Function Locally
+
+```bash
 supabase functions serve --no-verify-jwt
+```
 
-# Then Post
-
+```bash
 curl -X POST http://localhost:54321/functions/v1/log-visit \
--H "Content-Type: application/json" \
--d '{"project_name": "Portfolio"}'
+  -H "Content-Type: application/json" \
+  -d '{"project_name": "Portfolio"}'
+```
 
+---
 
+## SQL Migration Example
 
+**`supabase/migrations/20240605_init.sql`**:
 
-# -- supabase/migrations/20240605_init.sql
-
+```sql
 create table if not exists project_traffic (
   id uuid primary key default gen_random_uuid(),
   project_name text not null,
@@ -52,31 +78,42 @@ create table if not exists project_traffic (
 );
 
 create index if not exists idx_project_name on project_traffic (project_name);
+```
 
-
-
-This creates the analytics logging table and an index for lookup speed.
-
+Run migration:
+```bash
 supabase db push
+```
 
+---
 
-ad env to .env 
+## .env File
+
+```
 SUPABASE_URL=https://your-project-id.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+```
 
+---
 
+## supa-bootstrap Directory Structure
 
-# Directory structure:
-
+```
 supa-bootstrap/
 ├── bin/
 │   └── supa-bootstrap.js
 ├── templates/
 │   ├── base/
-│   │   └── supabase.env
+│   │   ├── supabase.env
+│   │   ├── .env
+│   │   └── config.toml
 │   ├── functions/
-│   │   └── log-visit.js
+│   │   └── log-visit/
+│   │       ├── index.ts
+│   │       ├── deno.json
+│   │       └── import_map.json
 │   └── migrations/
+│       └── 20240605_init.sql
 ├── .env
-├── config.toml
-├── supabase.env
+└── README.md
+```

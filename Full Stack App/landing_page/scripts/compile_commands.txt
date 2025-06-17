@@ -1,0 +1,3 @@
+chmod +x spinupscript.sh          # one-time
+./spinupscript.sh <project-dir> [supabase-project-ref]
+#        |__________|            └─ optional (link later if blank)
